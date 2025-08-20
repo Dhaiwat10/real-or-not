@@ -2,13 +2,25 @@
   "name": "real-or-not",
   "private": true,
   "version": "0.0.0",
+  "description": "Real or Not (C2PA): client-only demo that verifies Content Credentials in the browser.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc -b --pretty false",
     "preview": "vite preview"
   },
+  "keywords": [
+    "c2pa",
+    "content-credentials",
+    "provenance",
+    "react",
+    "vite",
+    "typescript"
+  ],
+  "license": "MIT",
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

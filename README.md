@@ -1,69 +1,44 @@
-# React + TypeScript + Vite
+# Real or Not (C2PA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Client-only demo that verifies C2PA/Content Credentials for images in the browser using the c2pa JavaScript SDK. No backend required.
 
-Currently, two official plugins are available:
+### Features
+- Verify presence of a C2PA manifest and show basic provenance details
+- Distinguish between Real (verified), Generated (AI flag present), and Untrusted (validation warnings)
+- Runs entirely in-browser; loads the SDK from a CDN
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Quick start
+```bash
+pnpm i
+pnpm dev
+```
+Then open the printed URL.
 
-## Expanding the ESLint configuration
+### Testing images
+Most images on the web don’t include Content Credentials. Try the C2PA public test files:
+`https://spec.c2pa.org/public-testfiles/image/`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Build
+```bash
+pnpm build
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Lint & type-check
+```bash
+pnpm lint
+pnpm lint:fix
+pnpm typecheck
 ```
+
+### Tech
+- React 19, TypeScript 5, Vite 7
+- Tailwind CSS (via @tailwindcss/vite)
+- ESLint (flat config)
+
+### Notes
+- The SDK and worker/wasm are loaded from `jsdelivr`. For production, consider pinning versions and self-hosting assets.
+- This project does not perform server-side verification.
+
+### License
+MIT
