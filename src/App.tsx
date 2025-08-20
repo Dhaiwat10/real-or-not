@@ -163,7 +163,7 @@ export default function App() {
 
       <footer className="mt-10 text-xs text-neutral-500">
         <p>
-          Most images don&apos;t include Content Credentials. To test, try these
+          Most images don&apos;t include Content Credentials (yet). To test, try these
           images:{" "}
           <a
             href="https://spec.c2pa.org/public-testfiles/image/"
@@ -208,7 +208,7 @@ function Result({ status }: { status: Status }) {
           <p className="text-xs text-neutral-500 mt-2">{status.error}</p>
         )}
         <p className="text-sm text-neutral-300 mt-3">
-          Most images don&apos;t include Content Credentials. To test, try these
+          Most images don&apos;t include Content Credentials (yet). To test, try these
           images:{" "}
           <a
             href="https://spec.c2pa.org/public-testfiles/image/"
