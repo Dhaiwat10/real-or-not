@@ -76,24 +76,20 @@ export default function App() {
             producer: selectProducer?.(active)?.name ?? "Unknown",
             signatureIssuer: active.signatureInfo?.issuer,
             signatureDate: active.signatureInfo?.time ?? undefined,
-            ingredients: (
-              (Array.isArray(active.ingredients)
-                ? (active.ingredients as Array<{ title?: string }>)
-                : []
-              )
-                .map((i) => i.title)
-                .filter((t): t is string => typeof t === "string" && t.length > 0)
-                .join(", ")
-            ),
+            ingredients: (Array.isArray(active.ingredients)
+              ? (active.ingredients as Array<{ title?: string }>)
+              : []
+            )
+              .map((i) => i.title)
+              .filter((t): t is string => typeof t === "string" && t.length > 0)
+              .join(", "),
             thumbnailUrl: thumb?.url,
             // The presence / value of an AI flag is not yet standardized everywhere,
             // but if the manifest includes the C2PA "Generated with AI" assertion,
             // many producers set it in the active manifest assertions. We check common places.
             hasAIFlag: !!(
-              (
-                active.assertions &&
-                JSON.stringify(active.assertions).toLowerCase().includes("ai")
-              )
+              active.assertions &&
+              JSON.stringify(active.assertions).toLowerCase().includes("ai")
             ),
           };
 
@@ -118,7 +114,8 @@ export default function App() {
           setStatus({ kind: "real", details });
         } catch (readErr: unknown) {
           // Any failure to read/verify = Not verifiable
-          const message = readErr instanceof Error ? readErr.message : String(readErr);
+          const message =
+            readErr instanceof Error ? readErr.message : String(readErr);
           setStatus({
             kind: "notverifiable",
             error: message,
@@ -178,18 +175,22 @@ export default function App() {
           </a>
         </p>
         <p className="mt-4">
-          This repo is open source.
+          This repo is open source:{" "}
+          <a
+            href="https://github.com/dhaiwat10/real-or-not"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            https://github.com/dhaiwat10/real-or-not
+          </a>
         </p>
       </footer>
     </div>
   );
 }
 
-function Result({
-  status,
-}: {
-  status: Status;
-}) {
+function Result({ status }: { status: Status }) {
   if (status.kind === "idle")
     return <p className="text-neutral-400">Choose an image to begin.</p>;
   if (status.kind === "checking")
@@ -236,7 +237,9 @@ function Result({
       : { color: "bg-orange-500/20", dot: "bg-orange-400" };
 
   const details: Details | undefined =
-    status.kind === "real" || status.kind === "ai" || status.kind === "untrusted"
+    status.kind === "real" ||
+    status.kind === "ai" ||
+    status.kind === "untrusted"
       ? status.details
       : undefined;
 
@@ -246,7 +249,10 @@ function Result({
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
         {details?.thumbnailUrl && (
           <div className="col-span-1 md:col-span-2">
-            <img src={details.thumbnailUrl} className="rounded-xl border border-neutral-800" />
+            <img
+              src={details.thumbnailUrl}
+              className="rounded-xl border border-neutral-800"
+            />
           </div>
         )}
         <Field k="Title" v={details?.title} />
